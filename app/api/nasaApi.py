@@ -11,7 +11,7 @@ def train_model(longitude: float, latitude: float):
 
 @router.get("/tomorrowPrediction")
 def tomorrow_prediction(longitude: float, latitude: float):
-    result = PredictService.predict_daily(longitude, latitude)
+    result = PredictService.tomorrow_prediction(longitude, latitude)
     return result
 
 @router.get("/weekPrediction")

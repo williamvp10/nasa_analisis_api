@@ -1,8 +1,36 @@
 import os
 from app.services.DataPreprocessor import DataPreprocessor
 from app.services.NeuronalNetwork.PredictModel import PredictModel
+from app.services.nasaService import NasaService
 
 class PredictService:
+
+    def tomorrow_prediction(longitude, latitude):
+        if not NasaService.evaluate_if_model_exists(longitude, latitude):
+            return {'error': True, 'message': "Los modelos no existen"}
+        
+        parameters = ["T2M", "PRECTOTCORR", "WS10M", "RH2M"]
+        all_predictions = []
+        for param in parameters:
+            csv_folder_path = 'csvFiles'
+            model_folder_path = 'IA_Models'
+
+            csv_file_name = f"{longitude:.6f}_{latitude:.6f}.csv"
+            csv_full_path = os.path.join(csv_folder_path, csv_file_name)
+
+            model_file_name = f"{longitude:.6f}_{latitude:.6f}_{param}.keras"
+            model_full_path = os.path.join(model_folder_path, model_file_name)
+
+            series = DataPreprocessor.get_series(csv_full_path, param)
+            predictions = PredictModel.prediction(model_full_path, series['series'], sequence_length = 7, prediction_number=4)
+            #PredictModel.show_predictions(next_week_predictions)
+            result_safe = [float(pred) for pred in predictions]
+            result_safe = result_safe[-1]
+            all_predictions.append(result_safe)
+        
+        return {'error': False, 'predictions': all_predictions}
+
+        
 
     def predict_daily(longitude, latitude):
         longitude = float(longitude)
@@ -28,7 +56,7 @@ class PredictService:
         
         series = DataPreprocessor.get_series(csv_full_path, 'T2M')
 
-        next_week_predictions = PredictModel.predict_next_week(model_full_path, series['series'], sequence_length = 7)
+        next_week_predictions = PredictModel.prediction(model_full_path, series['series'], sequence_length = 7, prediction_number=4)
         #PredictModel.show_predictions(next_week_predictions)
         result_safe = [float(pred) for pred in next_week_predictions]
         return {'error': False, 'predictions': result_safe}
