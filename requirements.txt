@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+alembic
+psycopg2-binary
+pydantic
+pydantic-settings
+
+requests
+
+python-dotenv
+
+matplotlib
+pandas
+tensorflow
+scikit-learn
