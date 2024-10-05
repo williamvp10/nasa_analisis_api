@@ -62,7 +62,7 @@ class NasaService:
         csv_full_path = os.path.join(csv_folder_path, csv_file_name)
 
         # Lista de parámetros (modelos)
-        parameters = ["T2M", "PRECTOT", "WS10M", "RH2M"]
+        parameters = ["T2M", "PRECTOTCORR", "WS10M", "RH2M"]
         model_exists_all = True
 
         # Verificar si cada modelo existe
