@@ -54,13 +54,13 @@ class PredictModel:
 
         return predictions
     
-    def show_predictions(next_week_predictions):
-        start_date_prediction="2024-09-30"
-        end_date_prediction="2024-10-06"
-        dates = pd.date_range(start=start_date_prediction, periods=7)
-        predictions_df = pd.DataFrame({'Fecha': dates, f'Predicción {'T2M'}': next_week_predictions})
-        print(predictions_df)
+    #def show_predictions(next_week_predictions):
+    #    start_date_prediction="2024-09-30"
+    #    end_date_prediction="2024-10-06"
+    #    dates = pd.date_range(start=start_date_prediction, periods=7)
+    #    predictions_df = pd.DataFrame({'Fecha': dates, f'Predicción {'T2M'}': next_week_predictions})
+    #    print(predictions_df)
 
-        predictions_df.plot(x='Fecha', y=f'Predicción {'T2M'}', kind='line', marker='o', title=f'Predicciones de {'T2M'} del {start_date_prediction} al {end_date_prediction}')
-        plt.ylabel(f'Parametro ({'T2M'})')
-        plt.show()
+    #    predictions_df.plot(x='Fecha', y=f'Predicción {'T2M'}', kind='line', marker='o', title=f'Predicciones de {'T2M'} del {start_date_prediction} al {end_date_prediction}')
+    #    plt.ylabel(f'Parametro ({'T2M'})')
+    #    plt.show()
